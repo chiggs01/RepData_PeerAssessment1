@@ -73,12 +73,14 @@ img {
     myData$interval &lt;- as.numeric(as.factor(myData$interval))
     myData$time &lt;- strptime(myData$date,&quot;%Y-%m-%d&quot;) + 300 * myData$interval</code></pre>
 <p>Some snapshots of the data illustrate it’s current form, including a number of missing values:</p>
+<pre class="r"><code>    head(myData, 5)</code></pre>
 <pre><code>##   steps       date interval                time
 ## 1    NA 2012-10-01        1 2012-10-01 00:05:00
 ## 2    NA 2012-10-01        2 2012-10-01 00:10:00
 ## 3    NA 2012-10-01        3 2012-10-01 00:15:00
 ## 4    NA 2012-10-01        4 2012-10-01 00:20:00
 ## 5    NA 2012-10-01        5 2012-10-01 00:25:00</code></pre>
+<pre class="r"><code>    tail(myData, 5)</code></pre>
 <pre><code>##       steps       date interval                time
 ## 17564    NA 2012-11-30      284 2012-11-30 23:40:00
 ## 17565    NA 2012-11-30      285 2012-11-30 23:45:00
@@ -92,7 +94,7 @@ img {
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
-<p>The histogram below is prepared from the tidy data set using the following code. It also displays the mean and median:</p>
+<p>The histogram below is prepared from the tidy data set using the following code. The mean and median number of steps per day is included in the graph:</p>
 <pre class="r"><code>    #summarise data by day
     mySteps&lt;-aggregate(steps ~ date, myData, FUN = mean, rm.na = TRUE)
     hist(mySteps$steps, main = &quot;Histogram of Steps per day&quot;, xlab = &quot;&quot;)  
@@ -102,7 +104,7 @@ img {
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>
-<p>The data set can also be used to provide a graph of average daily activity.</p>
+<p>The data set can also be used to provide a graph of average daily activity. The interval which represents the maximum number of steps is included in the graph.</p>
 <pre class="r"><code>    #summarise data by day
     myIntervals&lt;-aggregate(steps ~ interval, myData, FUN = mean, rm.na = TRUE)
     plot(myIntervals, type = &quot;l&quot;)  
@@ -135,7 +137,7 @@ img {
 ## 17566 0.6415094 2012-11-30      286 2012-11-30 23:50:00
 ## 17567 0.2264151 2012-11-30      287 2012-11-30 23:55:00
 ## 17568 1.0754717 2012-11-30      288 2012-12-01 00:00:00</code></pre>
-<p>As a result of these changes, the histogram prepared from this new data set has changed slightly:</p>
+<p>As a result of these changes, the histogram prepared from this new data set has changed slightly. Again, the mean and median number of steps have been included in the graph:</p>
 <pre class="r"><code>    # create histogram of average steps per day with revised data
     newSteps &lt;- aggregate(steps ~ date, newData, FUN = mean)
     hist(newSteps$steps, main = &quot;Histogram of Steps per day&quot;, xlab = &quot;&quot;)
